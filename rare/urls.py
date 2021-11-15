@@ -20,9 +20,10 @@ from rest_framework import routers
 from rareapi.models import Author
 
 
-from rareapi.views import register_user
+from rareapi.views import register_user, CategoryView
 
 router = routers.DefaultRouter(trailing_slash=False)
+router.register(r'categories', CategoryView, 'category')
 
 urlpatterns = [
     path('', include(router.urls)),
