@@ -1,0 +1,18 @@
+[
+    {
+        "model": "rareapi.reaction",
+        "pk": 1,
+        "fields": {
+            "label": "Happy",
+            "image_url": ""
+        }
+    },
+    {
+        "model": "rareapi.reaction",
+        "pk": 2,
+        "fields": {
+            "label": "Sad",
+            "image_url": ""
+        }
+    }
+]
