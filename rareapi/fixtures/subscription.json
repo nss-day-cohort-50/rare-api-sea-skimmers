@@ -4,19 +4,9 @@
         "pk": 1,
         "fields": {
             "created_on": "2021-11-15",
-            "follower": 2,
+            "follower": [2],
             "author": 1,
-            "ended_on": ""
-        }
-    },
-    {
-        "model": "rareapi.subscription",
-        "pk": 2,
-        "fields": {
-            "created_on": "2021-11-15",
-            "follower": 1,
-            "author": 2,
-            "ended_on": ""
+            "ended_on": "2099-11-15"
         }
     }
 ]
