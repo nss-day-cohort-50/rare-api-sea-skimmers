@@ -9,13 +9,8 @@
         {
             "previewLimit": 50,
             "driver": "SQLite",
-<<<<<<< HEAD
             "name": "rare database",
             "database": "db.sqlite3"
-=======
-            "name": "Rare DB",
-            "database": "${workspaceFolder:seakskimmers-rare-rest}/db.sqlite3"
->>>>>>> main
         }
     ],
     
