@@ -6,4 +6,4 @@ class Comment(models.Model):
     post = models.ForeignKey("Comment", on_delete=models.CASCADE)
     author = models.ForeignKey("Author", on_delete=models.CASCADE)
     content = models.TextField()
-    created_on = models.DateTimeField()
+    created_on = models.DateField()
