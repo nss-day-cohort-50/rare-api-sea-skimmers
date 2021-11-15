@@ -20,14 +20,13 @@ from rest_framework import routers
 from rareapi.models import Author
 
 
+from rareapi.views import register_user
+
 router = routers.DefaultRouter(trailing_slash=False)
 
 urlpatterns = [
-    # Requests to http://localhost:8000/register will be routed to the register_user function
-
-    # Requests to http://localhost:8000/login will be routed to the login_user function
-
-    path('api-auth', include('rest_framework.urls', namespace='rest_framework')),
-    path('admin/', admin.site.urls),
     path('', include(router.urls)),
+    path('admin/', admin.site.urls),
+    path('register', register_user),
+    path('api-auth', include('rest_framework.urls', namespace='rest_framework')),
 ]
