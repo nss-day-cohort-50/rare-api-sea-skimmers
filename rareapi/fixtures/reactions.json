@@ -3,7 +3,7 @@
         "model": "rareapi.reaction",
         "pk": 1,
         "fields": {
-            "label": 1,
+            "label": "Happy",
             "image_url": "https://pngtree.com/so/happy"
         }
     },
@@ -11,7 +11,7 @@
         "model": "rareapi.reaction",
         "pk": 2,
         "fields": {
-            "label": 2,
+            "label": "Angry",
             "image_url": "https://pngtree.com/so/angry"
         }
     }

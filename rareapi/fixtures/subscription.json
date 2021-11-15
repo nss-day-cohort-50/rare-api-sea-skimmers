@@ -1,0 +1,12 @@
+[
+    {
+        "model": "rareapi.subscription",
+        "pk": 1,
+        "fields": {
+            "created_on": "2021-11-15",
+            "follower": [2],
+            "author": 1,
+            "ended_on": "2099-11-15"
+        }
+    }
+]
