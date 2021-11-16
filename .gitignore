@@ -117,3 +117,4 @@ cython_debug/
 db.sqlite3
 rare.db
 Pipfile*
+.vscode
