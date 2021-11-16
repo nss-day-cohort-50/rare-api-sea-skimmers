@@ -19,11 +19,11 @@ from django.urls import path
 from rest_framework import routers
 from rareapi.models import Author
 
-
-from rareapi.views import register_user, CategoryView
+from rareapi.views import register_user, PostView, CategoryView
 
 router = routers.DefaultRouter(trailing_slash=False)
 router.register(r'categories', CategoryView, 'category')
+router.register(r'posts', PostView, 'posts')
 
 urlpatterns = [
     path('', include(router.urls)),
