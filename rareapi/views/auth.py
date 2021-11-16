@@ -53,7 +53,7 @@ def register_user(request):
         first_name=request.data['first_name'],
         last_name=request.data['last_name'],
         email=request.data['email'],
-        is_admin=request.data['is_admin']
+        is_staff=request.data['is_staff']
     )
 
     # Now save the extra info in the levelupapi_gamer table
