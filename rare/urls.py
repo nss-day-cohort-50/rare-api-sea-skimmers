@@ -29,8 +29,11 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('register', register_user),
     path('api-auth', include('rest_framework.urls', namespace='rest_framework')),
+<<<<<<< HEAD
 
     path('api-auth', include('rest_framework.urls', namespace='rest_framework')),
     path('admin/', admin.site.urls),
     path('', include(router.urls)),
+=======
+>>>>>>> main
 ]
