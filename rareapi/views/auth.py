@@ -14,7 +14,7 @@ def login_user(request):
     '''Handles the authentication of a gamer
 
     Method arguments:
-      request -- The full HTTP request object
+    request -- The full HTTP request object
     '''
     username = request.data['username']
     password = request.data['password']
