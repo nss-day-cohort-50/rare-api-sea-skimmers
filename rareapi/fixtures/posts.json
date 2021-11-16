@@ -1,0 +1,28 @@
+[
+    {
+        "model": "rareapi.post",
+        "pk": 1,
+        "fields": {
+            "author": 1,
+            "category": 1,
+            "title": "Scaffolding",
+            "publication_date": "2021-11-07",
+            "image_url": "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse1.mm.bing.net%2Fth%3Fid%3DOIP.7-ZAn-gICE5Y5lNfJqNAtgHaE8%26pid%3DApi&f=1",
+            "content": "Not quite like NYC",
+            "approved": 0
+        }
+    },
+    {
+        "model": "rareapi.post",
+        "pk": 2,
+        "fields": {
+            "author": 2,
+            "category": 2,
+            "title": "Parrot Attack",
+            "publication_date": "2021-11-06",
+            "image_url": "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse2.mm.bing.net%2Fth%3Fid%3DOIP.AGwT94lGhBctYl7ngyEwJAHaF7%26pid%3DApi&f=1",
+            "content": "Got a new ear piercing.",
+            "approved": 0
+        }
+    }
+]
