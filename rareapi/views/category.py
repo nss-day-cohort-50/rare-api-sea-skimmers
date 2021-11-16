@@ -32,6 +32,29 @@ class CategoryView(ViewSet):
         )
         return Response(serializer.data)
 
+    def retrieve(self, request, pk=None):
+
+        try:
+            category = Category.objects.get(pk=pk)
+            serializer = CategorySerializer(category, context={'request': request})
+            return Response(serializer.data)
+
+        except Category.DoesNotExist as ex:
+            return Response({'message': 'Category does not exist'}, status=status.HTTP_404_NOT_FOUND)
+
+    def destroy(self, request, pk=None):
+        try:
+            category = Category.objects.get(pk=pk)
+            category.delete()
+
+            return Response({}, status=status.HTTP_204_NO_CONTENT)
+
+        except Category.DoesNotExist as ex:
+            return Response({'message': ex.args[0]}, status=status.HTTP_404_NOT_FOUND)
+        
+        except Exception as ex:
+            return Response({'message': ex.args[0]}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
 class CategorySerializer(serializers.ModelSerializer):
     """JSON serializer for games
     Arguments:
