@@ -36,6 +36,24 @@ class CommentView(ViewSet):
         except Exception as ex:
             return HttpResponseServerError(ex)
 
+    def update(self, request, pk=None):
+
+        author = Author.objects.get(user=request.auth.user)
+        post = Post.objects.get(id=request.data['postId'])
+
+        # Do mostly the same thing as POST, but instead of
+        # creating a new instance of Game, get the game record
+        # from the database whose primary key is `pk`
+        comment = Comment.objects.get(pk=pk)
+        comment.content = request.data["content"]
+        comment.post = post
+        comment.author = author
+        comment.save()
+
+        # 204 status code means everything worked but the
+        # server is not sending back any data in the response
+        return Response({'yeah yeah yeah'}, status=status.HTTP_204_NO_CONTENT)
+
 class CommentSerializer(serializers.ModelSerializer):
  
     class Meta:
