@@ -54,6 +54,20 @@ class CommentView(ViewSet):
         # server is not sending back any data in the response
         return Response({'yeah yeah yeah'}, status=status.HTTP_204_NO_CONTENT)
 
+    def destroy(self, request, pk=None):
+
+        try:
+            comment = Comment.objects.get(pk=pk)
+            comment.delete()
+
+            return Response({}, status=status.HTTP_204_NO_CONTENT)
+
+        except Comment.DoesNotExist as ex:
+            return Response({'message': ex.args[0]}, status=status.HTTP_404_NOT_FOUND)
+
+        except Exception as ex:
+            return Response({'message': ex.args[0]}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
 class CommentSerializer(serializers.ModelSerializer):
  
     class Meta:
