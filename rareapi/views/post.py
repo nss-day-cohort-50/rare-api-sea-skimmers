@@ -6,7 +6,7 @@ from rest_framework.viewsets import ViewSet
 from rest_framework.response import Response
 from rest_framework import serializers
 from django.contrib.auth.models import User
-from rareapi.models import Author, Post, Category
+from rareapi.models import Author, Post, Category, Comment
 
 
 class PostView(ViewSet):
@@ -52,8 +52,16 @@ class PostView(ViewSet):
 
         serializer = PostSerializer(
             posts, many=True, context={'request': request})
+        # for post in serializer.data:
+        #     post['comments'] = Comment.objects.filter(post.id=comment)
         return Response(serializer.data)
 
+
+class CommentSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Comment
+        fields = ( 'id', 'content', 'author', 'created_on', )
 
 class UserSerializer(serializers.ModelSerializer):
     """JSON serializer for users on authors on posts"""
@@ -71,6 +79,7 @@ class AuthorSerializer(serializers.ModelSerializer):
 class PostSerializer(serializers.ModelSerializer):
     """JSON serializer for Posts"""
     author = AuthorSerializer()
+    
     class Meta:
         model = Post
         fields = ('id', 'author', 'category', 'title', 'publication_date', 'image_url', 'content', 'approved')
