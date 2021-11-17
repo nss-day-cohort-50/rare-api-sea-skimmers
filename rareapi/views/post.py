@@ -79,7 +79,8 @@ class AuthorSerializer(serializers.ModelSerializer):
 class PostSerializer(serializers.ModelSerializer):
     """JSON serializer for Posts"""
     author = AuthorSerializer()
+    comments = CommentSerializer(many=True)
     
     class Meta:
         model = Post
-        fields = ('id', 'author', 'category', 'title', 'publication_date', 'image_url', 'content', 'approved')
+        fields = ('id', 'author', 'category', 'title', 'publication_date', 'image_url', 'content', 'approved', 'comments')
