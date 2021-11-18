@@ -3,11 +3,13 @@ from rest_framework import status
 from django.core.exceptions import ValidationError
 from django.http import HttpResponseServerError
 from rest_framework.decorators import action
+from rest_framework.fields import DateTimeField
 from rest_framework.viewsets import ViewSet
 from rest_framework.response import Response
 from rest_framework import serializers
 from django.contrib.auth.models import User
 from rareapi.models import Author, Post, Category, Comment
+import datetime
 
 
 class PostView(ViewSet):
@@ -20,14 +22,14 @@ class PostView(ViewSet):
         """
 
         author = Author.objects.get(user=request.auth.user)
-        category = Category.objects.get(pk=request.data["categoryId"])
+        category = Category.objects.get(pk=request.data["category"])
 
         try:
             post = Post.objects.create(
                 author = author,
                 category = category,
                 title = request.data["title"],
-                publication_date = request.data["publicationDate"],
+                publication_date = datetime.datetime.now().date(),
                 image_url = request.data["imageUrl"],
                 content = request.data["content"],
                 approved = request.data["approved"]
@@ -129,12 +131,9 @@ class CategorySerializer(serializers.ModelSerializer):
 class PostSerializer(serializers.ModelSerializer):
     """JSON serializer for Posts"""
     author = AuthorSerializer()
-<<<<<<< HEAD
     category = CategorySerializer()
-=======
     comments = CommentSerializer(many=True)
     
->>>>>>> main
     class Meta:
         model = Post
         fields = ('id', 'author', 'category', 'title', 'publication_date', 'image_url', 'content', 'approved', 'comments')
