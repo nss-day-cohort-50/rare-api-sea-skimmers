@@ -59,6 +59,30 @@ class PostView(ViewSet):
         #     post['comments'] = Comment.objects.filter(post.id=comment)
         return Response(serializer.data)
 
+    @action(methods=['PATCH'], detail=True)
+    def approve(self, request, pk=None):
+
+        post = Post.objects.get(pk=pk)
+        author = Author.objects.get(user=request.auth.user)
+
+
+        try:
+
+            post = Post.objects.get(pk=pk)
+        except Post.DoesNotExist:
+            return Response(
+                {'message': 'Post does not exist.'},
+                status=status.HTTP_400_BAD_REQUEST
+            )
+
+        if author.user.is_staff == True:
+            try:
+                post.approved = True
+                post.save()
+                return Response({'you did it'}, status=status.HTTP_201_CREATED)
+            except Exception as ex:
+                return Response({'message': ex.args[0]})
+
     def update(self, request, pk=None):
         """"""
         author = Author.objects.get(user=request.auth.user)
