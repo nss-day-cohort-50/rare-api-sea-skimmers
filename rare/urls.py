@@ -20,13 +20,14 @@ from django.conf import settings
 from django.urls import path
 from rest_framework import routers
 from rareapi.models import Author
-from rareapi.views import register_user, login_user, PostView, CategoryView, CommentView, TagView
+from rareapi.views import register_user, login_user, PostView, CategoryView, CommentView, TagView, AuthorView
 
 router = routers.DefaultRouter(trailing_slash=False)
 router.register(r'categories', CategoryView, 'category')
 router.register(r'posts', PostView, 'posts')
 router.register(r'comments', CommentView, 'comments')
 router.register(r'tags', TagView, 'post')
+router.register(r'authors', AuthorView, 'author')
 
 urlpatterns = [
     path('', include(router.urls)),

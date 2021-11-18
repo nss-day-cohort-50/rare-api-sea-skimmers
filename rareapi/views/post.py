@@ -57,11 +57,9 @@ class PostView(ViewSet):
         #     post['comments'] = Comment.objects.filter(post.id=comment)
         return Response(serializer.data)
 
-    @action(methods=['PUT'], detail=True)
+    @action(methods=['PATCH'], detail=True)
     def approve(self, request, pk=None):
-        """Managing gamers signing up for events"""
-        # Django uses the `Authorization` header to determine
-        # which user is making the request to sign up
+
         post = Post.objects.get(pk=pk)
         author = Author.objects.get(user=request.auth.user)
 
@@ -75,10 +73,11 @@ class PostView(ViewSet):
                 status=status.HTTP_400_BAD_REQUEST
             )
 
-        if author.isStaff == True:
+        if author.user.is_staff == True:
             try:
                 post.approved = True
-                return Response({}, status=status.HTTP_201_CREATED)
+                post.save()
+                return Response({'you did it'}, status=status.HTTP_201_CREATED)
             except Exception as ex:
                 return Response({'message': ex.args[0]})
 

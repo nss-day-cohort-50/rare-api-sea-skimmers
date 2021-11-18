@@ -3,3 +3,4 @@ from .category import CategoryView
 from .post import PostView
 from .comment import CommentView
 from .tag import TagView
+from .author import AuthorView
