@@ -64,6 +64,8 @@ class PostView(ViewSet):
         # Django uses the `Authorization` header to determine
         # which user is making the request to sign up
         post = Post.objects.get(pk=pk)
+        author = Author.objects.get(user=request.auth.user)
+
 
         try:
 
@@ -74,7 +76,7 @@ class PostView(ViewSet):
                 status=status.HTTP_400_BAD_REQUEST
             )
 
-        if request.method == "PUT":
+        if author.isStaff == True:
             try:
                 post.approved = True
                 return Response({}, status=status.HTTP_201_CREATED)
