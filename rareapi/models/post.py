@@ -12,10 +12,18 @@ class Post(models.Model):
     approved = models.BooleanField()
     
 
-    # @property
-    # def post_comments(self):
-    #     """Average rating calculated attribute for each game"""
-    #     comments = Comment.objects.filter(post_id=self.id)
-    #     # Sum all of the ratings for the game
+    @property
+    def isApproved(self):
+        """Average rating calculated attribute for each game"""
+        ratings = GameRating.objects.filter(game_id=self.id)
+        # Sum all of the ratings for the game
+        total_rating = 0
+        if ratings:
+            for rating in ratings:
+                total_rating += rating.rating
+            average = total_rating / len(ratings)
+        else:
+            average = 0
+            
 
-    #     return comments
+        return average

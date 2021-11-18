@@ -2,6 +2,8 @@
 from rest_framework import status
 from django.core.exceptions import ValidationError
 from django.http import HttpResponseServerError
+
+from rest_framework.decorators import action
 from rest_framework.viewsets import ViewSet
 from rest_framework.response import Response
 from rest_framework import serializers
@@ -55,6 +57,29 @@ class PostView(ViewSet):
         # for post in serializer.data:
         #     post['comments'] = Comment.objects.filter(post.id=comment)
         return Response(serializer.data)
+
+    @action(methods=['PUT'], detail=True)
+    def approve(self, request, pk=None):
+        """Managing gamers signing up for events"""
+        # Django uses the `Authorization` header to determine
+        # which user is making the request to sign up
+        post = Post.objects.get(pk=pk)
+
+        try:
+
+            post = Post.objects.get(pk=pk)
+        except Post.DoesNotExist:
+            return Response(
+                {'message': 'Post does not exist.'},
+                status=status.HTTP_400_BAD_REQUEST
+            )
+
+        if request.method == "PUT":
+            try:
+                post.approved = True
+                return Response({}, status=status.HTTP_201_CREATED)
+            except Exception as ex:
+                return Response({'message': ex.args[0]})
 
 
 class CommentSerializer(serializers.ModelSerializer):
