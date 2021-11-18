@@ -24,5 +24,31 @@
             "content": "Got a new ear piercing.",
             "approved": 0
         }
+    },
+    {
+        "model": "rareapi.post",
+        "pk": 3,
+        "fields": {
+            "author": 3,
+            "category": 1,
+            "title": "Scaffolding",
+            "publication_date": "2021-11-10",
+            "image_url": "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse1.mm.bing.net%2Fth%3Fid%3DOIP.7-ZAn-gICE5Y5lNfJqNAtgHaE8%26pid%3DApi&f=1",
+            "content": "Not quite like NYC",
+            "approved": 0
+        }
+    },
+    {
+        "model": "rareapi.post",
+        "pk": 4,
+        "fields": {
+            "author": 3,
+            "category": 2,
+            "title": "Parrot Attack",
+            "publication_date": "2021-11-10",
+            "image_url": "https://lafeber.com/pet-birds/wp-content/uploads/2020/04/gamaliel-troubleson-u9PsLITXMCQ-unsplash-e1587001975887.jpg",
+            "content": "Got a new ear piercing.",
+            "approved": 0
+        }
     }
 ]
