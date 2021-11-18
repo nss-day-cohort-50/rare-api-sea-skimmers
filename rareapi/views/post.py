@@ -2,7 +2,6 @@
 from rest_framework import status
 from django.core.exceptions import ValidationError
 from django.http import HttpResponseServerError
-
 from rest_framework.decorators import action
 from rest_framework.viewsets import ViewSet
 from rest_framework.response import Response
@@ -83,6 +82,46 @@ class PostView(ViewSet):
             except Exception as ex:
                 return Response({'message': ex.args[0]})
 
+    def update(self, request, pk=None):
+        """"""
+        author = Author.objects.get(user=request.auth.user)
+        category = Category.objects.get(pk=request.data["categoryId"])
+
+        post = Post.objects.get(pk=pk)
+        post.title = request.data["title"]
+        post.publication_date = request.data["publicationDate"]
+        post.image_url = request.data["imageUrl"]
+        post.content = request.data["content"]
+        post.approved = request.data["approved"]
+        post.save()
+
+        return Response({}, status=status.HTTP_204_NO_CONTENT)
+
+    def destroy(self, request, pk=None):
+        """"""
+        try:
+            post = Post.objects.get(pk=pk)
+            post.delete()
+
+            return Response({}, status=status.HTTP_204_NO_CONTENT)
+
+        except Post.DoesNotExist as ex:
+            return Response({'message': ex.args[0]}, status=status.HTTP_404_NOT_FOUND)
+        except Exception as ex:
+            return Response({'message': ex.args[0]}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+    @action(methods=['get'], detail=False)
+    def currentuser(self, request):
+        """"""
+        author = Author.objects.get(user=request.auth.user)
+        try:
+            posts = Post.objects.filter(author=author)
+            serializer = PostSerializer(posts, many=True)
+            return Response(serializer.data, status=status.HTTP_200_OK)
+        except Post.DoesNotExist:
+            return Response(
+                [], status=status.HTTP_204_NO_CONTENT
+            )
 
 class CommentSerializer(serializers.ModelSerializer):
 
@@ -103,9 +142,19 @@ class AuthorSerializer(serializers.ModelSerializer):
         model = Author
         fields = ('id', 'user', 'bio')
 
+class CategorySerializer(serializers.ModelSerializer):
+    """JSON serializer for games
+    Arguments:
+        serializer type
+    """
+    class Meta:
+        model = Category
+        fields = ('id', 'label')
+
 class PostSerializer(serializers.ModelSerializer):
     """JSON serializer for Posts"""
     author = AuthorSerializer()
+    category = CategorySerializer()
     comments = CommentSerializer(many=True)
     
     class Meta:
